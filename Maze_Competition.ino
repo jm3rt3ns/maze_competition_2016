@@ -37,12 +37,32 @@ void High()
   Serial.println(front);
 
   //if both low, drift left
-  servo_left.write(90);
-  servo_right.write(90);
+  if(!side&&!front)
+  {
+    servo_left.write(20);
+    servo_right.write(180);
+  }
+  // reverse servo_left.write(0);
+  // reverse servo_right.write(180);
 
   //if side high and front low, drift right
-
+  if(side&&!front)
+  {
+    servo_left.write(0);
+    servo_right.write(160);
+  }
+  
   //if side low and front high, turn left
-
+  if(!side&&front)
+  {
+    servo_left.write(180);
+    servo_right.write(180);
+  }
+  
   //if both high, turn right
+  if(side&&front)
+  {
+    servo_left.write(0);
+    servo_right.write(0);
+  }
 }
