@@ -29,54 +29,43 @@ void setup()
 
 void loop()
 {
-  /*
   //if both low, drift left
-  /*if(!side&&!front)
+  if(!side&&!front)
   {
-    servo_left.write(20);
-    servo_right.write(180);
+    Turn_Left();
   }
-  // reverse servo_left.write(0);
-  // reverse servo_right.write(180);
 
   //if side high and front low, drift right
   if(side&&!front)
   {
-    servo_left.write(0);
-    servo_right.write(160);
+    Drift_Left();
   }
   
   //if side low and front high, turn left
   if(!side&&front)
   {
-    servo_left.write(180);
-    servo_right.write(180);
+    Turn_Left();
   }
   
   //if both high, turn right
   if(side&&front)
   {
-    servo_left.write(0);
-    servo_right.write(0);
+    Turn_Right();
   }
-  */
- 
-   //Drift_Left();
-  // Drift_Right();
-   Stop();
-  
-}
 
+  front = 0;
+  side = 0;
+}
 
 void High()
 {
   //run when either sensor changes
   side = digitalRead(side_sw);
-  //Serial.print("side: ");
-  //Serial.println(side);
+  Serial.print("side: ");
+  Serial.println(side);
   front = digitalRead(front_sw);
-  //Serial.print("front: ");
-  //Serial.println(front);
+  Serial.print("front: ");
+  Serial.println(front);
   
 }
 
@@ -86,16 +75,43 @@ void Drift_Left(){
 }
 
 void Drift_Right(){
-  servo_left.write(110-LEFT_OFFSET);
-  servo_right.write(80+RIGHT_OFFSET);
+  //servo_left.write(110-LEFT_OFFSET);
+  //servo_right.write(80+RIGHT_OFFSET);
+  
+  servo_left.write(180-LEFT_OFFSET);
+  servo_right.write(180-RIGHT_OFFSET);
+  delay(100);
 }
 
 void Turn_Right(){
-  Reverse();
+  /*Reverse();
   delay(300);
   servo_left.write(180-LEFT_OFFSET);
   servo_right.write(180-RIGHT_OFFSET);
-  delay(500);
+  delay(1000);
+
+  while(!side)
+  {
+    side = digitalRead(side_sw);
+    Drift_Left();
+  }
+
+  servo_left.write(180-LEFT_OFFSET);
+  servo_right.write(180-RIGHT_OFFSET);
+  delay(250);
+
+  while(!side)
+  {
+    side = digitalRead(side_sw);
+    Drift_Left();
+  }
+  */
+  }
+
+void Turn_Left(){
+  servo_left.write(0-LEFT_OFFSET);
+  servo_right.write(0-RIGHT_OFFSET);
+  delay(100);
 }
 
 void Stop()
